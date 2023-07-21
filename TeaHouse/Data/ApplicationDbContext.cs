@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using TeaHouse.Models;
@@ -18,5 +19,7 @@ namespace TeaHouse.Data
         {
             return new ApplicationDbContext();
         }
+        public DbSet<Category> Categories { get; set; }
     }
+    
 }

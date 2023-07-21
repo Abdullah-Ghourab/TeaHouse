@@ -1,0 +1,35 @@
+﻿@model List<TeaHouse.Models.CategoryViewModel>
+@{
+    ViewBag.Title = "Categories";
+}
+<div class="mt-5 pt-5 row align-items-center justify-content-between container">
+    <h2 class="col-6">Categroies</h2>
+    @Html.ActionLink("Add", "Create", "Categories", routeValues: null, htmlAttributes: new { @class = "nav-link col-3 btn btn-primary" })
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Created On</th>
+                <th scope="col">Last updated On</th>
+                <th scope="col">Is Deleted</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            @foreach (var category in Model)
+            {
+            <tr>
+                <th scope="row">@category.Id</th>
+                <td>@category.Title</td>
+                <td>@category.CreatedOn</td>
+                <td>@category.LastUpdatedOn</td>
+                <td>@category.IsDeleted</td>
+            </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+

@@ -216,3 +216,4 @@ E:\getintoweb\TeaHouse\TeaHouse\obj\Debug\TeaHouse.dll
 E:\getintoweb\TeaHouse\TeaHouse\obj\Debug\TeaHouse.pdb
 E:\getintoweb\TeaHouse\TeaHouse\obj\Debug\TeaHouse.Migrations.Initial.resources
 E:\getintoweb\TeaHouse\TeaHouse\obj\Debug\TeaHouse.csproj.GenerateResource.cache
+E:\getintoweb\TeaHouse\TeaHouse\obj\Debug\TeaHouse.Migrations.CreatingCategoryTable.resources

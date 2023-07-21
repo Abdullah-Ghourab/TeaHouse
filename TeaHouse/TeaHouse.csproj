@@ -46,6 +46,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=8.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.1.1\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -169,8 +172,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Core\mapping\MappingProfile.cs" />
     <Compile Include="Data\ApplicationDbContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -179,9 +184,17 @@
     <Compile Include="Migrations\202307211413247_Initial.designer.cs">
       <DependentUpon>202307211413247_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202307211807514_CreatingCategoryTable.cs" />
+    <Compile Include="Migrations\202307211807514_CreatingCategoryTable.designer.cs">
+      <DependentUpon>202307211807514_CreatingCategoryTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\CategoryFormViewModel.cs" />
+    <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -326,6 +339,8 @@
     <Content Include="wwwroot\lib\fontawosome\webfonts\fa-solid-900.woff2" />
     <Content Include="wwwroot\lib\owlcarousel\LICENSE" />
     <Content Include="wwwroot\lib\waypoints\links.php" />
+    <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\Categories\Form.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -360,6 +375,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202307211413247_Initial.resx">
       <DependentUpon>202307211413247_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202307211807514_CreatingCategoryTable.resx">
+      <DependentUpon>202307211807514_CreatingCategoryTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

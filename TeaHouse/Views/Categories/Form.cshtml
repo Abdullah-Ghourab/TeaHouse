@@ -1,0 +1,28 @@
+﻿@model TeaHouse.Models.CategoryFormViewModel
+@{
+    ViewBag.Title = "Create";
+}
+
+
+<div class="container mt-5 pt-5">
+    <section id="loginForm" class="row justify-content-center">
+        @using (Html.BeginForm("Create", "Categories", FormMethod.Post, new { role = "form", @class = "col-md-6" }))
+        {
+            <h2 class="text-center text-primary " id="title">@ViewBag.Title.</h2>
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="my-3">
+                <div class="form-floating">
+                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+                    @Html.LabelFor(m => m.Title)
+                </div>
+                @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="row">
+                <input type="submit" value="Save" class="btn btn-primary rounded-pill" />
+            </div>
+        }
+    </section>
+</div>

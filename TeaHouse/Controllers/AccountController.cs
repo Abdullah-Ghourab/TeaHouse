@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -24,7 +25,7 @@ namespace TeaHouse.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -36,9 +37,9 @@ namespace TeaHouse.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -75,29 +76,36 @@ namespace TeaHouse.Controllers
                 return View(model);
             }
 
-            var user = await UserManager.FindByEmailAsync(model.Email);
+            var user = await UserManager.Users.FirstOrDefaultAsync(e => e.UserName == model.Email || e.Email == model.Email);
             if (user != null)
             {
                 // Ensure the provided password is valid
-                 var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-               
+                var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+
 
                 if (result == SignInStatus.Success)
                 {
-                    // Successful login
-                    // Create a ClaimsIdentity with the user's name as a claim
-                    var claims = new List<Claim>
-                    {
-                        new Claim(ClaimTypes.Name, user.FullName),
-                        // Add other claims as needed
-                    };
+                    // Use the HttpContext to get the AuthenticationManager
+                    var authenticationManager = HttpContext.GetOwinContext().Authentication;
 
-                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationType);
+                    // Create a new ClaimsIdentity with the existing authentication type
+                    var identity = UserManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
+
+                    // Add the custom claim (e.g., custom claim for user role)
+                    identity.AddClaim(new Claim("UserRole", "Admin"));
+
+                    // Sign in the user with the custom identity
+                    authenticationManager.SignIn(new AuthenticationProperties
+                    {
+                        IsPersistent = false
+                    }, identity);
+
+                    // Redirect the user to the appropriate page after login
                     return RedirectToAction("Index", "Home");
 
                 }
             }
-                    return View(model);
+            return View(model);
         }
 
         //
@@ -129,7 +137,7 @@ namespace TeaHouse.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -160,12 +168,12 @@ namespace TeaHouse.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email,FullName = model.FullName };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FullName = model.FullName };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
