@@ -14,7 +14,9 @@ namespace TeaHouse.Core.mapping
             //Categories
             CreateMap<Category, CategoryViewModel>();
             CreateMap<CategoryFormViewModel, Category>().ReverseMap();
-
+            //Products
+            CreateMap<Product, ProductViewModel>();
+            CreateMap<ProductFormViewModel, Product>().ReverseMap();
         }
     }
 }

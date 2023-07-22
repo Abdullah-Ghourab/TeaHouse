@@ -217,3 +217,7 @@ E:\getintoweb\TeaHouse\TeaHouse\obj\Debug\TeaHouse.pdb
 E:\getintoweb\TeaHouse\TeaHouse\obj\Debug\TeaHouse.Migrations.Initial.resources
 E:\getintoweb\TeaHouse\TeaHouse\obj\Debug\TeaHouse.csproj.GenerateResource.cache
 E:\getintoweb\TeaHouse\TeaHouse\obj\Debug\TeaHouse.Migrations.CreatingCategoryTable.resources
+E:\getintoweb\TeaHouse\TeaHouse\bin\AutoMapper.dll
+E:\getintoweb\TeaHouse\TeaHouse\bin\AutoMapper.pdb
+E:\getintoweb\TeaHouse\TeaHouse\bin\AutoMapper.xml
+E:\getintoweb\TeaHouse\TeaHouse\obj\Debug\TeaHouse.Migrations.AddingProductsTable.resources

@@ -1,17 +1,20 @@
-﻿@model List<TeaHouse.Models.CategoryViewModel>
+﻿
+@model List<TeaHouse.Models.ProductViewModel>
 @{
-    ViewBag.Title = "Categories";
+    ViewBag.Title = "Products";
 }
 <div class="container">
     <div class="mt-5 pt-5 row align-items-center justify-content-between ">
-        <h2 class="col-6">Categroies</h2>
-        @Html.ActionLink("Add", "Create", "Categories", routeValues: null, htmlAttributes: new { @class = "nav-link col-3 btn btn-primary" })
+        <h2 class="col-6">Products</h2>
+        @Html.ActionLink("Add", "Create", "Products", routeValues: null, htmlAttributes: new { @class = "nav-link col-3 btn btn-primary" })
 
         <table class="table table-striped mt-5  text-center">
             <thead>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Title</th>
+                    <th scope="col">Discription</th>
+                    <th scope="col">Price</th>
                     <th scope="col">Created On</th>
                     <th scope="col">Last updated On</th>
                     <th scope="col">Status</th>
@@ -21,23 +24,25 @@
             </thead>
             <tbody>
 
-                @foreach (var category in Model)
+                @foreach (var product in Model)
                 {
                     <tr>
-                        <th scope="row">@category.Id</th>
-                        <td>@category.Title</td>
-                        <td>@category.CreatedOn</td>
-                        <td>@category.LastUpdatedOn</td>
-                        <td class=@(category.IsDeleted?"text-danger":"text-success")>@(category.IsDeleted?"Deleted":"Available")</td>
+                        <th scope="row">@product.Id</th>
+                        <td>@product.Title</td>
+                        <td>@product.Description</td>
+                        <td>@product.Price $</td>    
+                        <td>@product.CreatedOn</td>
+                        <td>@product.LastUpdatedOn</td>
+                        <td class=@(product.IsDeleted?"text-danger":"text-success")>@(product.IsDeleted?"Deleted":"Available")</td>
                         <td>
                             <div class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">Action</a>
                                 <div class="dropdown-menu bg-light rounded-0 m-0">
-                                    @Html.ActionLink("Edit", "Edit", "Categories", new { id = category.Id }, new { @class = "dropdown-item" })
-                                    @using (Html.BeginForm("ToggleStatus", "Categories", FormMethod.Post))
+                                    @Html.ActionLink("Edit", "Edit", "Products", new { id = product.Id }, new { @class = "dropdown-item" })
+                                    @using (Html.BeginForm("ToggleStatus", "Products", FormMethod.Post))
                                     {
                                         @Html.AntiForgeryToken()
-                                        <input name="id" value=@category.Id class="d-none" />
+                                        <input name="id" value=@product.Id class="d-none" />
                                         <input type="submit" value="Toggle Status" class="dropdown-item" />
                                     }
 
@@ -45,7 +50,7 @@
                                     @*<a href="blog.html" class="dropdown-item">Toggle Status</a>*@
 
                                 </div>
-                              
+
                             </div>
                         </td>
                     </tr>

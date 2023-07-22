@@ -1,4 +1,5 @@
-﻿@model TeaHouse.Models.CategoryFormViewModel
+﻿
+@model TeaHouse.Models.ProductFormViewModel
 @{
     ViewBag.Title = (Model.Id > 0) ? "Edit" : "Create";
 }
@@ -6,7 +7,7 @@
 
 <div class="container mt-5 pt-5">
     <section id="loginForm" class="row justify-content-center">
-        @using (Html.BeginForm((Model.Id > 0)?"Edit": "Create", "Categories", FormMethod.Post, new { role = "form", @class = "col-md-6" }))
+        @using (Html.BeginForm((Model.Id > 0) ? "Edit" : "Create", "Products", FormMethod.Post, new { role = "form", @class = "col-md-6" }))
         {
             <h2 class="text-center text-primary " id="title">@ViewBag.Title.</h2>
             @Html.AntiForgeryToken()
@@ -23,6 +24,22 @@
                 </div>
                 @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
             </div>
+            <div class="my-3">
+                <div class="form-floating">
+                    @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+                    @Html.LabelFor(m => m.Description)
+                </div>
+                @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+            </div>
+            <div class="my-3">
+                <div class="form-floating">
+                    @Html.TextBoxFor(m => m.Price, new { @class = "form-control" })
+                    @Html.LabelFor(m => m.Price)
+                </div>
+                @Html.ValidationMessageFor(m => m.Price, "", new { @class = "text-danger" })
+            </div>
+
+
 
             <div class="row">
                 <input type="submit" value="Save" class="btn btn-primary rounded-pill" />
@@ -30,3 +47,4 @@
         }
     </section>
 </div>
+

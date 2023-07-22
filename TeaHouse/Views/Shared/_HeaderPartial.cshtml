@@ -12,7 +12,8 @@
                     <a href="index.html" class="nav-item nav-link active">Home</a>
                     <a href="about.html" class="nav-item nav-link">About</a>
                     @Html.ActionLink("Categories", "Index", "Categories", routeValues: null, htmlAttributes: new { id = "Categories", @class = "nav-link" })
-                    <a href="product.html" class="nav-item nav-link">Products</a>
+                    @Html.ActionLink("Products", "Index", "Products", routeValues: null, htmlAttributes: new { id = "Categories", @class = "nav-link" })
+
                     <a href="store.html" class="nav-item nav-link">Store</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
